@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 
 public class Util {
-    Logger log = Logger.getLogger(Class.class.getName());
+    private final Logger log = Logger.getLogger(Class.class.getName());
     public final static boolean flagMysql = true;
     private final String DB_DRIVER_NAME;
     private final String DB_URL;
@@ -43,6 +43,8 @@ public class Util {
         return connection;
     }
 
+    //Вопрос: как здесь правильно обрабатывать исключения?
+    //Передавать выше, если Да, то каким классом? RuntimeException?
     public void closeConnection() {
         if(connection != null) {
             try {
@@ -52,7 +54,6 @@ public class Util {
             } finally {
                 connection = null;
             }
-
         }
     }
 }

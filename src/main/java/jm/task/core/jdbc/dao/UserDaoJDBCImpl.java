@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private Logger log = Logger.getLogger(Class.class.getName());
-    Util util;
+    private final Logger log = Logger.getLogger(Class.class.getName());
+    private final Util util;
 
     public UserDaoJDBCImpl() {
         util = new Util();
