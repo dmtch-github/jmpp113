@@ -24,10 +24,12 @@ public class UserDaoJDBCImpl implements UserDao {
                     st.execute("SELECT * FROM users");
                     log.info("Таблица найдена");
                 } catch (SQLException e) {
-                    //строка PostgreSQL
-                    String sqlCommand = "CREATE TABLE users (id SERIAL PRIMARY KEY, name CHARACTER VARYING(30) NOT NULL, lastName CHARACTER VARYING(30) NOT NULL, Age INTEGER NOT NULL);";
-                    //строка MySQL
-                    //"CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT,name VARCHAR(45) NOT NULL,lastName VARCHAR(45) NOT NULL,age INT(3) NOT NULL,PRIMARY KEY (id), UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);";
+                    String sqlCommand;
+                    if (Util.flagMysql) { //строка MySQL
+                        sqlCommand = "CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT,name VARCHAR(45) NOT NULL,lastName VARCHAR(45) NOT NULL,age INT(3) NOT NULL,PRIMARY KEY (id), UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);";
+                    } else { //строка PostgreSQL
+                        sqlCommand = "CREATE TABLE users (id SERIAL PRIMARY KEY, name CHARACTER VARYING(30) NOT NULL, lastName CHARACTER VARYING(30) NOT NULL, Age INTEGER NOT NULL);";
+                    }
                     st.executeUpdate(sqlCommand);
                     log.info("Таблица создана");
                 }

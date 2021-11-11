@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class Util {
     Logger log = Logger.getLogger(Class.class.getName());
-
+    public final static boolean flagMysql = true;
     private final String DB_DRIVER_NAME;
     private final String DB_URL;
     private final String DB_USER_NAME;
@@ -16,7 +16,7 @@ public class Util {
     private Connection connection = null;
 
     public Util() {
-        if(false) {
+        if(flagMysql) {
             log.info("Работаю с БД MySQL");
             DB_DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
             DB_URL = "jdbc:mysql://localhost:3306/mydbtest";
