@@ -1,16 +1,13 @@
 package jm.task.core.jdbc.util;
 
-import jm.task.core.jdbc.model.User;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Util {
     private static final Logger log = Logger.getLogger(Util.class.getName());
-    public static final boolean FLAG_USE_MYSQL = false;
+    public static final boolean FLAG_USE_MYSQL = true;
     public static final String SQL_CMD_CREATE_TABLE;
     private static final String DB_DRIVER_NAME;
     private static final String DB_URL;
