@@ -20,13 +20,13 @@ public class Util {
             DB_URL = "jdbc:mysql://localhost:3306/mydbtest";
             DB_USER_NAME = "root";
             DB_USER_PASSWORD = "rootroot";
-            SQL_CMD_CREATE_TABLE = "CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT,name VARCHAR(45) NOT NULL,lastName VARCHAR(45) NOT NULL,age INT(3) NOT NULL,PRIMARY KEY (id), UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);";
+            SQL_CMD_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS users (id INT NOT NULL AUTO_INCREMENT,name VARCHAR(45) NOT NULL,lastName VARCHAR(45) NOT NULL,age INT(3) NOT NULL,PRIMARY KEY (id), UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);";
         } else {
             DB_DRIVER_NAME = "org.postgresql.Driver";
             DB_URL = "jdbc:postgresql://localhost:5432/mydbtest";
             DB_USER_NAME = "admin";
             DB_USER_PASSWORD = "12345678";
-            SQL_CMD_CREATE_TABLE = "CREATE TABLE users (id SERIAL PRIMARY KEY, name CHARACTER VARYING(30) NOT NULL, lastName CHARACTER VARYING(30) NOT NULL, Age INTEGER NOT NULL);";
+            SQL_CMD_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name CHARACTER VARYING(30) NOT NULL, lastName CHARACTER VARYING(30) NOT NULL, Age INTEGER NOT NULL);";
         }
     }
 

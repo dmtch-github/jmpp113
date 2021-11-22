@@ -31,18 +31,52 @@ public class UserDaoJDBCImpl implements UserDao {
         Util.closeConnectionJDBC(connection);
     }
 
+//    public void saveUser(String name, String lastName, byte age) {
+//        Connection connection = Util.getConnectionJDBC();
+//        try (PreparedStatement st = connection.prepareStatement("INSERT INTO users (name, lastName, age) VALUES (?,?,?);")) {
+//            st.setString(1, name);
+//            st.setString(2, lastName);
+//            st.setInt(3, age);
+//            st.executeUpdate();
+//        } catch (SQLException e) {
+//            log.warning("Ошибка. Не создан PreparedStatement или не найдена таблица");
+//        }
+//        Util.closeConnectionJDBC(connection);
+//    }
+
     public void saveUser(String name, String lastName, byte age) {
         Connection connection = Util.getConnectionJDBC();
-        try (PreparedStatement st = connection.prepareStatement("INSERT INTO users (name, lastName, age) VALUES (?,?,?);")) {
-            st.setString(1, name);
-            st.setString(2, lastName);
-            st.setInt(3, age);
-            st.executeUpdate();
+        //Savepoint savepointSaveUser = connection.setSavepoint("savepointSaveUser");
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement st = null;
+
+            try {
+                st = connection.prepareStatement("INSERT INTO users (name, lastName, age) VALUES (?,?,?);");
+                st.setString(1, name);
+                st.setString(2, lastName);
+                st.setInt(3, age);
+                st.executeUpdate();
+            }
+            finally {
+                if(st != null) {
+                    st.close();
+                }
+            }
+
+            connection.commit();
         } catch (SQLException e) {
             log.warning("Ошибка. Не создан PreparedStatement или не найдена таблица");
+            try {
+                connection.rollback();
+            } catch (SQLException ignore) {
+
+            }
+        } finally {
+            Util.closeConnectionJDBC(connection);
         }
-        Util.closeConnectionJDBC(connection);
     }
+
 
     public void removeUserById(long id) {
         Connection connection = Util.getConnectionJDBC();
